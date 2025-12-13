@@ -24,3 +24,8 @@ exports.add =  (req , res , next) => {
     res.redirect("/product/add");
 
 }
+
+exports.productPage = (req , res  , next) => {
+    res.redirect("/404");
+}
+
