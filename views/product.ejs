@@ -24,12 +24,14 @@
         <div class="product">
             <fieldset>
                 <legend><%= product.name %></legend>
+
+                <div class="price">₹<%= product.price %></div>
                 
                 <div class="description">
                     <%= product.description %>
                 </div>
 
-                <div class="price">₹<%= product.price %></div>
+                <button class="btn">Add To Cart</button>
             </fieldset>
         </div>
         <% } %>
