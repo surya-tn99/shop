@@ -16,7 +16,11 @@ nav ul li{
 nav ul li#active{
     text-decoration: underline;
 }
-nav ul li:hover{
+nav ul li a:hover{
     cursor: pointer;
     color: rgba(32, 0, 255, 0.56);;
+}
+nav ul li a{
+    color: white;
+    text-decoration: none;
 }

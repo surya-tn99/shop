@@ -2,8 +2,8 @@ const express = require("express");
 const path = require("path");
 const app = express();
 // routes
-const productRoute = require("./routes/product.js");
-
+const productViewRoute = require("./routes/productView.js");
+const manageProduct = require("./routes/manageProduct.js");
 // template engine
 app.set("view engine" , "ejs");
 app.set("views" , "views");
@@ -17,6 +17,10 @@ app.use("/css" ,
         )
     )
 
-app.use(productRoute);
+app.use(express.urlencoded({extended : true}));
+
+// routes middleware
+app.use("/product" , manageProduct);
+app.use(productViewRoute);
 
 app.listen(1234);

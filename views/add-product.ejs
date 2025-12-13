@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product</title>
+    <% for(let cssPath of cssPaths) { %>
+    <link rel="stylesheet" href=<%= cssPath %> >    
+    <% } %>
+
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">Shop</a></li>
+            <li><a href="/product">Product</a></li>
+            <li><a href="cart">Cart</a></li>
+            <li id="active"><a href="/product/add">Add product</a></li>
+            <li><a href="/product/admin">Admin product</a></li>
+        </ul>
+    </nav>
+    <main>
+        <form action="/product/add" method="post">
+            <legend>Title</legend>
+            <input type="text" name="title" id="" placeholder="Pen">
+            <legend>Price</legend>
+            <input type="number" name="price" id="" placeholder="50">
+            <legend>Description</legend>
+            <textarea name="description" id="" placeholder="Pen made of High quailty Steel"></textarea>
+            <br>
+            <button type="submit">Add Product</button>
+        </form>
+    </main>
+</body>
+</html>

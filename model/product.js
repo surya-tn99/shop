@@ -1,20 +1,34 @@
-
 const products = [
     {
-        name : "chair",
+        title : "chair",
         description : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, laboriosam.",
         price : 500
     },
     {
-        name : "cooker",
+        title : "cooker",
         description : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, laboriosam.",
         price : 1500
     },
     {
-        name : "crown",
+        title : "crown",
         description : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, laboriosam.",
         price : 150000
     }
 ]
 
-exports.products = products;
+module.exports = class Product{
+
+    constructor(title , desc , price){
+        this.title = title
+        this.description = desc
+        this.price = price
+    }
+
+    addProduct(){
+        products.push(this);
+    }
+
+    static allProductDetails(){
+        return products;
+    }
+}
