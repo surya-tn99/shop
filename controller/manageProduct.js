@@ -20,6 +20,16 @@ exports.add =  (req , res , next) => {
     res.redirect("/product/add");
 
 }
+// handle /product/admin
+exports.admin = (req , res  , next) => {
+    res.render("product" , 
+        {
+            active : "admin",
+            cssPaths : ["/css/nav.css" ,"/css/common.css" , "/css/products.css" ],
+            products : Product.allProductDetails()
+        }
+    );
+}
 
 exports.productPage = (req , res  , next) => {
     res.render("product" , 

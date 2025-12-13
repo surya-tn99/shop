@@ -26,7 +26,12 @@
             </li>
             <li><a href="cart">Cart</a></li>
             <li><a href="/product/add">Add product</a></li>
-            <li><a href="/product/admin">Admin product</a></li>
+            <li
+                <% if(active === "admin") { %>
+                    id="active"
+                <% } %>
+                >
+                <a href="/product/admin">Admin product</a></li>
         </ul>
     </nav>
     <main>
@@ -41,7 +46,13 @@
                     <%= product.description %>
                 </div>
 
-                <button class="btn">Add To Cart</button>
+                <% if(active === "admin") {%>
+                    <button class="btn">Edit</button>
+                    <button class="btn">Delete</button>
+                <% } else {%>
+                    <button class="btn">Add To Cart</button>
+                <% }%>
+
             </fieldset>
         </div>
         <% } %>
