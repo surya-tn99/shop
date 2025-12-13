@@ -1,0 +1,22 @@
+nav{
+    background-color: rgb(255, 145, 0);
+    color: white;
+}
+nav ul{
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    padding: 15px;
+    flex-wrap: wrap;
+}
+nav ul li{
+    list-style-type: none;  
+    font-weight: 600;
+}
+nav ul li#active{
+    text-decoration: underline;
+}
+nav ul li:hover{
+    cursor: pointer;
+    color: rgba(32, 0, 255, 0.56);;
+}

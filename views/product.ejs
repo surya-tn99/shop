@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop</title>
+    <% for(let cssPath of cssPaths) { %>
+    <link rel="stylesheet" href=<%= cssPath %> >    
+    <% } %>
+
+</head>
+<body>
+    <nav>
+        <ul>
+            <li>Shop</li>
+            <li id="active">Product</li>
+            <li>Cart</li>
+            <li>Add product</li>
+            <li>Admin product</li>
+        </ul>
+    </nav>
+    <main>
+        <% for(let product of products) { %>
+        <div class="product">
+            <fieldset>
+                <legend><%= product.name %></legend>
+                
+                <div class="description">
+                    <%= product.description %>
+                </div>
+
+                <div class="price">₹<%= product.price %></div>
+            </fieldset>
+        </div>
+        <% } %>
+    </main>
+</body>
+</html>

@@ -1,0 +1,12 @@
+.product{
+    margin: auto 20px;
+}
+.product legend{
+    text-transform: uppercase;
+    padding: 5px;
+}
+.product .price{
+    display: inline-block;
+    padding: 5px;
+    border: 2px solid black;
+}   
