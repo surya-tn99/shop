@@ -17,15 +17,16 @@ exports.add =  (req , res , next) => {
     
     product.addProduct()
     
-    console.log(product)
-
-    console.log(Product.allProductDetails())
-    
     res.redirect("/product/add");
 
 }
 
 exports.productPage = (req , res  , next) => {
-    res.redirect("/404");
+    res.render("product" , 
+        {
+            active : "product",
+            cssPaths : ["/css/nav.css" ,"/css/common.css" , "/css/products.css" ],
+            products : Product.allProductDetails()
+        }
+    );
 }
-
