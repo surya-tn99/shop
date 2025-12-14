@@ -5,7 +5,7 @@ const product = require("../controller/manageProduct.js");
 
 router.get("/view" , product.productPage);
 router.get("/add" , product.view);
-router.post("/add" , product.add);
+router.post("/add-product" , product.postAddProduct);
 router.get("/admin" , product.admin);
 
 router.use( (req , res , next )=> {

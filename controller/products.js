@@ -2,13 +2,16 @@
 const Product = require("../model/product.js");
 
 exports.shopPage =  (req , res  , next) => {
-    res.render("product" , 
-        {   
-            active : "shop" ,
+    
+    Product.fetchAllProductDetails(products => {
+        res.render("product" , 
+        {
+            active : "shop",
             cssPaths : ["/css/nav.css" ,"/css/common.css" , "/css/products.css" ],
-            products : Product.allProductDetails()
+            products : products
         }
-    );
+        );
+    }) ;  
 }
 
 exports._404 = (req, res, next) =>{

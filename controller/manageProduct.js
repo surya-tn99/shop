@@ -2,14 +2,20 @@ const Product = require("../model/product.js");
 
 // handle /product/add GET 
 exports.view = (req , res , next) => {
+
+    console.log("called add product route GET");
+
     res.render("add-product" , 
         {
             cssPaths : ["/css/nav.css" ,"/css/common.css" , "/css/add-product.css" ]
         }
     );
 }
-// handle /product/add POST
-exports.add =  (req , res , next) => {
+
+// handle /product/add-product POST
+exports.postAddProduct =  (req , res , next) => {
+
+    console.log("called add product route POST");
 
     const product = new Product(
         req.body.title , req.body.description??'' , req.body.price 
@@ -17,26 +23,34 @@ exports.add =  (req , res , next) => {
     
     product.addProduct()
     
-    res.redirect("/product/add");
-
+    res.redirect("/");
 }
+
 // handle /product/admin
 exports.admin = (req , res  , next) => {
-    res.render("product" , 
+    
+    Product.fetchAllProductDetails(products => {
+        res.render("product" , 
         {
             active : "admin",
             cssPaths : ["/css/nav.css" ,"/css/common.css" , "/css/products.css" ],
-            products : Product.allProductDetails()
+            products : products
         }
-    );
+        );
+    }) ;  
 }
 
+// handle /product/
 exports.productPage = (req , res  , next) => {
-    res.render("product" , 
+    
+    Product.fetchAllProductDetails(products => {
+        res.render("product" , 
         {
             active : "product",
             cssPaths : ["/css/nav.css" ,"/css/common.css" , "/css/products.css" ],
-            products : Product.allProductDetails()
+            products : products
         }
-    );
+        );
+    }) ;  
+
 }

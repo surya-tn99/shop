@@ -1,21 +1,17 @@
 const express = require("express");
 const path = require("path");
 const app = express();
+
 // routes
 const productViewRoute = require("./routes/productView.js");
 const manageProduct = require("./routes/manageProduct.js");
+
 // template engine
 app.set("view engine" , "ejs");
 app.set("views" , "views");
 
 // static files (css)
-app.use("/css" ,
-     express.static(
-        path.join(
-            path.dirname(require.main.filename) ,
-            "css" )
-        )
-    )
+app.use("/css" , express.static(path.join(__dirname ,"css" )))
 
 app.use ( (req,res,next)=>{
     console.log(req.url);
