@@ -1,7 +1,7 @@
 const Product = require("../model/product.js");
 
 // handle /product/add GET 
-exports.view = (req , res , next) => {
+exports.viewAddProductForm = (req , res , next) => {
 
     console.log("called add product route GET");
 
@@ -13,7 +13,7 @@ exports.view = (req , res , next) => {
 }
 
 // handle /product/add-product POST
-exports.postAddProduct =  (req , res , next) => {
+exports.addProduct =  (req , res , next) => {
 
     console.log("called add product route POST");
 
@@ -27,7 +27,7 @@ exports.postAddProduct =  (req , res , next) => {
 }
 
 // handle /product/admin
-exports.admin = (req , res  , next) => {
+exports.viewAdminPage = (req , res  , next) => {
     
     Product.fetchAllProductDetails(products => {
         res.render("product" , 
@@ -41,7 +41,7 @@ exports.admin = (req , res  , next) => {
 }
 
 // handle /product/
-exports.productPage = (req , res  , next) => {
+exports.viewProducts = (req , res  , next) => {
     
     Product.fetchAllProductDetails(products => {
         res.render("product" , 

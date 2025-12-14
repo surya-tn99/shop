@@ -3,10 +3,10 @@ const router = express.Router();
 
 const product = require("../controller/manageProduct.js");
 
-router.get("/view" , product.productPage);
-router.get("/add" , product.view);
-router.post("/add-product" , product.postAddProduct);
-router.get("/admin" , product.admin);
+router.get("/view" , product.viewProducts);
+router.get("/add" , product.viewAddProductForm);
+router.post("/add-product" , product.addProduct);
+router.get("/admin" , product.viewAdminPage);
 
 router.use( (req , res , next )=> {
     res.status(404).redirect("/404");
