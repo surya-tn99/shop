@@ -1,4 +1,5 @@
 const Product = require("../model/product.js");
+const Cart = require("../model/cart.js");
 
 exports.viewCart = (req , res, nest) =>{
     res.render("cart" , 
@@ -11,6 +12,8 @@ exports.viewCart = (req , res, nest) =>{
 
 exports.addProductToCart = (req , res, nest) =>{
     console.log(req.body.id);
+    console.log(req.body.price);
+    Cart.addProduct(req.body.id , req.body.price);
     res.redirect("/cart");
 }
 
