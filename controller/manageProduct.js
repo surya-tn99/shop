@@ -7,6 +7,7 @@ exports.viewAddProductForm = (req , res , next) => {
 
     res.render("add-product" , 
         {
+            active : "add-product",
             cssPaths : ["/css/nav.css" ,"/css/common.css" , "/css/add-product.css" ]
         }
     );
@@ -53,4 +54,21 @@ exports.viewProducts = (req , res  , next) => {
         );
     }) ;  
 
+}
+
+// handle /product/:productID
+exports.getProductDetails = (req , res , next) => {
+    const id = Number(req.params.productID);
+
+    Product.fetchProductById( id , product => {
+        console.log(product);
+        res.render("product" , 
+        {
+            active : "product-detail",
+            cssPaths : ["/css/nav.css" ,"/css/common.css" , "/css/products.css" ],
+            products : product
+        }
+        );
+    })
+    
 }

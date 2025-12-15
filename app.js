@@ -19,12 +19,13 @@ app.use ( (req,res,next)=>{
     console.log(req.url);
     next();
 })
+
 app.use(express.urlencoded({extended : true}));
 
 // routes middleware
 app.use(cartRouter);
-app.use("/admin" , adminRouter);
-app.use("/product" , manageProduct);
+app.use(adminRouter);
+app.use(manageProduct);
 app.use(productViewRoute);
 
 app.listen(1234);

@@ -1,0 +1,30 @@
+<nav>
+    <ul>
+        <li <% if(active === "shop") { %>
+                id="active"
+            <% } %>
+            >
+            <a href="/">Shop</a>
+        </li>
+        <li <% if(active === "product" || active === "product-detail") { %>
+                id="active"
+            <% } %>
+            >
+            <a href="/product">Product</a>
+        </li>
+        <li<% if(active === "cart") { %>
+                id="active"
+            <% } %>
+            ><a href="/cart">Cart</a></li>
+        <li<% if(active === "add-product") { %>
+                id="active"
+            <% } %>
+            ><a href="/product/add">Add product</a></li>
+        <li
+            <% if(active === "admin") { %>
+                id="active"
+            <% } %>
+            >
+            <a href="/admin">Admin product</a></li>
+    </ul>
+</nav>

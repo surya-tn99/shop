@@ -3,12 +3,13 @@ const router = express.Router();
 
 const product = require("../controller/manageProduct.js");
 
-router.get("/view" , product.viewProducts);
-router.get("/add" , product.viewAddProductForm);
-router.post("/add-product" , product.addProduct);
-router.get("/admin" , product.viewAdminPage);
+router.get("/product" , product.viewProducts);
 
-router.use( (req , res , next )=> {
-    res.status(404).redirect("/404");
-});
+router.get("/product/add" , product.viewAddProductForm);
+
+router.post("/product/add-product" , product.addProduct);
+
+router.get("/product/:productID" , product.getProductDetails);
+
+
 module.exports = router;

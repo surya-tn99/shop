@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product</title>
+    <title>Cart</title>
     <% for(let cssPath of cssPaths) { %>
     <link rel="stylesheet" href=<%= cssPath %> >    
     <% } %>
@@ -12,16 +12,6 @@
 <body>
 
     <%- include("include/nav") %>
-
-    <% if(active === "product-detail") { %>
-
-        <%- include("include/product-detail") %>
-
-    <% } else { %>
-        
-        <%- include("include/all-products") %>
-        
-    <% } %>
     
 </body>
 </html>

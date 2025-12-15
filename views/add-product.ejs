@@ -10,15 +10,9 @@
 
 </head>
 <body>
-    <nav>
-        <ul>
-            <li><a href="/">Shop</a></li>
-            <li><a href="/product/view">Product</a></li>
-            <li><a href="/cart">Cart</a></li>
-            <li id="active"><a href="/product/add">Add product</a></li>
-            <li><a href="/product/admin">Admin product</a></li>
-        </ul>
-    </nav>
+
+    <%- include("include/nav") %>
+    
     <main>
         <form action="/product/add-product" method="post">
             <legend>Title</legend>

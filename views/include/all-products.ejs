@@ -1,0 +1,29 @@
+<main>
+    <% for(let product of products) { %>
+    <div class="product">
+        <fieldset>
+            <legend><%= product.title %></legend>
+
+            <div class="price">₹<%= product.price %></div>
+            
+            <div class="description">
+                <%= product.description %>
+            </div>
+
+            <% if(active === "admin") {%>
+                <button class="btn">Edit</button>
+                <button class="btn">Delete</button>
+            <% } else {%>
+                <button class="btn"><a href="/product/<%= product.id %>">Details</a></button>
+               
+                <form action="/cart" method="post">
+                    <input type="hidden" name="id" value="<%= product.id %>"/>
+                    <button type="submit" class="btn">Add To Cart</button>
+                </form>
+            
+            <% }%>
+
+        </fieldset>
+    </div>
+    <% } %>
+</main>
