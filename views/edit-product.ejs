@@ -15,6 +15,7 @@
     
     <main>
         <form action="/admin/modify?edit=true&productID=<%=product.id%>" method="post">
+            <input type="hidden" name="id" value='<%=product.id%>'>
             <legend>Title</legend>
             <input type="text" name="title" id=""  value=<%= product.title %>>
             <legend>Price</legend>

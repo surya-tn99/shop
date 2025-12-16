@@ -18,7 +18,7 @@ exports.viewAdminPage = (req , res  , next) => {
 exports.editProductPage = (req , res , next )=>{
     
     Product.fetchProductById(req.query.productID, product => {
-        console.log(product);
+        
         res.render("edit-product" , 
         {
             active : "edit-product",
@@ -30,11 +30,16 @@ exports.editProductPage = (req , res , next )=>{
 }
 
 exports.productModification = (req , res , next) => {
-    
+
     if(req.query.delete == "true"){
         Product.deleteProduct(req.query.productID  , ()=>{
             console.log("product deleted");
         });
+    }
+    if(req.query.edit == "true"){
+        Product.editProduct(req.body , ()=>{
+            console.log("product edited");
+        })
     }
     res.redirect("/admin");
 }

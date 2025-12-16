@@ -47,13 +47,32 @@ module.exports = class Product{
         })       
 
     }
-    
+    static editProduct(newProduct , callback){
+        console.log(newProduct);
+        
+        getJSONContent(products => {
+
+            const index = products.findIndex(prod => prod.id == newProduct.id);
+            if(index != -1){
+                products[index] = newProduct; 
+            }
+            
+            fs.writeFile(productFilePath , JSON.stringify(products , null , 2) , (error)=>{
+                if(error){
+                    console.log("error bro while writing data");
+                }
+                callback();
+            });
+        })     
+    }
+
     static deleteProduct(productID , callBackFunction) {
         getJSONContent(products => {
 
             const index = products.findIndex(prod => prod.id == productID);
             if(index != -1){
                 products.splice(index , 1);
+                callBackFunction();
             }
 
             fs.writeFile(productFilePath , JSON.stringify(products , null , 2) , (error)=>{
