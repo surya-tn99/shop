@@ -13,3 +13,15 @@ exports.viewAdminPage = (req , res  , next) => {
         );
     }) ;  
 }
+
+exports.productModification = (req , res , next) => {
+    console.log(req.query);
+    if(req.query.delete == "true"){
+        Product.deleteProduct(req.query.productID  , ()=>{
+            console.log("product deleted");
+        });
+    }
+    res.redirect("/admin");
+}
+
+// TODO handle edit product req

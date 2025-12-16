@@ -48,6 +48,23 @@ module.exports = class Product{
 
     }
     
+    static deleteProduct(productID , callBackFunction) {
+        getJSONContent(products => {
+
+            const index = products.findIndex(prod => prod.id == productID);
+            if(index != -1){
+                products.splice(index , 1);
+            }
+
+            fs.writeFile(productFilePath , JSON.stringify(products , null , 2) , (error)=>{
+                if(error){
+                    console.log("error bro while writing data");
+                }
+            });
+            
+        })       
+    }
+
     static fetchAllProductDetails(callBackFunction) {
         getJSONContent(callBackFunction);
     }

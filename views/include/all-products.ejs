@@ -13,7 +13,12 @@
 
             <% if(active === "admin") {%>
                 <button class="btn">Edit</button>
-                <button class="btn">Delete</button>
+                
+                <form action="/admin/modify?delete=true&productID=<%=product.id%>" method="post">
+                        
+                        <button type="submit" class="btn">Delete</button>    
+                </form>    
+
             <% } else {%>
                 <button class="btn"><a href="/product/<%= product.id %>">Details</a></button>
                 

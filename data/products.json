@@ -1,21 +1,9 @@
 [
   {
-    "id": 4697,
-    "title": "pen test",
-    "description": "description",
-    "price": "101"
-  },
-  {
     "id": 5907,
     "title": "cable test",
     "description": "cable description",
     "price": "1001"
-  },
-  {
-    "id": 9597,
-    "title": "dress test",
-    "description": "dress description",
-    "price": "10"
   },
   {
     "id": 4941,

@@ -23,3 +23,4 @@ exports.addProductToCart = (req , res, nest) =>{
     res.redirect("/cart");
 }
 
+// TODO increase and descrese quantity
