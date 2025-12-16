@@ -1,48 +1,54 @@
 <main>
-    <% for(let product of products) { %>
-    <div class="product">
-        <fieldset>
-          
-            <legend><%= product.title %></legend>
 
-            <div class="price">₹<%= product.price %></div>
+    <% if(products.length > 0) { %>        
+        <% for(let product of products) { %>
+        <div class="product">
+            <fieldset>
             
-            <div class="description">
-                <%= product.description %>
-            </div>
+                <legend><%= product.title %></legend>
 
-            <% if(active === "admin") {%>
+                <div class="price">₹<%= product.price %></div>
                 
-                <button class="btn"><a href="/admin/edit-product?productID=<%=product.id%>">Edit</a></button>
-                <form action="/admin/modify?delete=true&productID=<%=product.id%>" method="post">
-                        
-                        <button type="submit" class="btn">Delete</button>    
-                </form>    
+                <div class="description">
+                    <%= product.description %>
+                </div>
 
-            <% } else {%>
-                <button class="btn"><a href="/product/<%= product.id %>">Details</a></button>
-                
-                <% if(active === "cart") {%>
-                    <button class="cart-qty-btn">Quantity : <%= product.quantity %>
-                    </button>
-                <% } else {%>
-                    <form action="/cart" method="post">
-                        <input type="hidden" name="id" value="<%= product.id %>"/>
-                        <input type="hidden" name="price" value="<%= product.price %>"/>
-                        
-                        <button type="submit" class="btn">Add To Cart</button>
+                <% if(active === "admin") {%>
                     
-                    </form>
+                    <button class="btn"><a href="/admin/edit-product?productID=<%=product.id%>">Edit</a></button>
+                    <form action="/admin/modify?delete=true&productID=<%=product.id%>" method="post">
+                            
+                            <button type="submit" class="btn">Delete</button>    
+                    </form>    
+
+                <% } else {%>
+                    <button class="btn"><a href="/product/<%= product.id %>">Details</a></button>
+                    
+                    <% if(active === "cart") {%>
+                        <button class="cart-qty-btn">Quantity : <%= product.quantity %>
+                        </button>
+
+                    <% } else {%>
+                        <form action="/cart" method="post">
+                            <input type="hidden" name="id" value="<%= product.id %>"/>
+                            <input type="hidden" name="price" value="<%= product.price %>"/>
+                            
+                            <button type="submit" class="btn">Add To Cart</button>
+                        
+                        </form>
+                        
+                    <% }%>
                 <% }%>
-            <% }%>
 
-        </fieldset>
-    </div>
+            </fieldset>
+        </div>
+        <% } %>
+
+        <% if(active == "cart"){ %>
+            <h3 class="title">Total Price : <%= totalPrice %></h3>  
+        <% } %>
+    
+    <% } else { %>
+        <h3 class="title">No Product At Cart</h3>
     <% } %>
-
-
-    <% if(active == "cart"){ %>
-        <h3 class="title">Total Price : <%= totalPrice %></h3>  
-    <% } %>
-
 </main>

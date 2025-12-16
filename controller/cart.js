@@ -17,8 +17,7 @@ exports.viewCart = (req , res, nest) =>{
 }
 
 exports.addProductToCart = (req , res, nest) =>{
-    console.log(req.body.id);
-    console.log(req.body.price);
+   
     Cart.addProduct(req.body.id , req.body.price);
     res.redirect("/cart");
 }

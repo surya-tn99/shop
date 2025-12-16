@@ -1,4 +1,5 @@
 const Product = require("../model/product.js");
+const Cart = require("../model/cart.js");
 
 // handle /admin
 exports.viewAdminPage = (req , res  , next) => {
@@ -40,8 +41,7 @@ exports.productModification = (req , res , next) => {
         Product.editProduct(req.body , ()=>{
             console.log("product edited");
         })
+        Cart.updateTotalPrice();
     }
     res.redirect("/admin");
 }
-
-// TODO handle edit product req

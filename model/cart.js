@@ -15,21 +15,24 @@ module.exports = class Cart{
             if(!error){
                 cart = JSON.parse(fileContent);
             }
-
             callback(cart);
         })
     }
 
     static FetchCartProductDetails(callback){
         Cart.listCartItems(cart => {
-        
+            
             const cartProductDetails = [];
             let productCount = cart.products.length;
-
+            
+            if(productCount == 0){
+                callback(cart);
+            }
+            
             for(let prod of cart.products){
 
                 Product.fetchProductById(prod.id , (product)=>{
-                    // console.log(product);
+                
                     if(product){
                         product = {...product , quantity :  prod.quantity};
                         cartProductDetails.push(product);
@@ -37,22 +40,45 @@ module.exports = class Cart{
                     productCount -- ;
 
                     if(productCount === 0){
-                        // console.log(cartProductDetails);
-                        for(let cart of cartProductDetails){
-                            console.log(cart);
-                        }
                         callback(cartProductDetails , cart.totalPrice);
                     }
-                })  
+                });  
 
             }
         })
     }
 
+    static updateTotalPrice() {
+        Cart.FetchCartProductDetails((cartProductDetails , totalPrice) => {
+            totalPrice = 0;
+            let products = [];
+            for(let prod of cartProductDetails) {                
+                
+                products.push({
+                    id: prod.id,
+                    quantity: prod.quantity
+                });
+
+                totalPrice += prod.price * prod.quantity;
+            }
+    
+            const cart = {
+                products : products , 
+                totalPrice : totalPrice
+            } ;
+
+            fs.writeFile(cartFilePath , JSON.stringify(cart , null , 2) , (error) => {
+                if(error){
+                    console.error(error);
+                }            
+            } );
+
+        });
+    }
 
     static  addProduct(id , price) {
 
-        fs.readFile(cartFilePath , async (error , fileContent)=>{
+        fs.readFile(cartFilePath , (error , fileContent)=>{
 
             let cart = { products : [] ,totalPrice : 0};
             
@@ -79,8 +105,7 @@ module.exports = class Cart{
 
             cart.totalPrice += +price;
 
-            await fs.writeFile(cartFilePath , JSON.stringify(cart , null , 2) , (error) => {
-                console.log( error ? "write failed" : "write completed");
+            fs.writeFile(cartFilePath , JSON.stringify(cart , null , 2) , (error) => {
                 if(error){
                     console.error(error);
                 }
