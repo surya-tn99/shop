@@ -49,24 +49,30 @@ module.exports = class Cart{
     }
 
     static updateTotalPrice() {
+
         Cart.FetchCartProductDetails((cartProductDetails , totalPrice) => {
             totalPrice = 0;
             let products = [];
-            for(let prod of cartProductDetails) {                
-                
-                products.push({
-                    id: prod.id,
-                    quantity: prod.quantity
-                });
 
-                totalPrice += prod.price * prod.quantity;
+            if(cartProductDetails.length > 0){
+
+                for(let prod of cartProductDetails) {                
+                    
+                    products.push({
+                        id: prod.id,
+                        quantity: prod.quantity
+                    });
+                    totalPrice += prod.price * prod.quantity;
+                }
             }
-    
+
             const cart = {
                 products : products , 
                 totalPrice : totalPrice
             } ;
 
+            console.log("update : " , cart);
+            
             fs.writeFile(cartFilePath , JSON.stringify(cart , null , 2) , (error) => {
                 if(error){
                     console.error(error);
@@ -76,7 +82,7 @@ module.exports = class Cart{
         });
     }
 
-    static  addProduct(id , price) {
+    static  addProduct(id) {
 
         fs.readFile(cartFilePath , (error , fileContent)=>{
 
@@ -103,13 +109,59 @@ module.exports = class Cart{
                 cart.products.push(newProduct);
             }
 
-            cart.totalPrice += +price;
 
             fs.writeFile(cartFilePath , JSON.stringify(cart , null , 2) , (error) => {
                 if(error){
                     console.error(error);
                 }
+                Cart.updateTotalPrice();
+            } );
+        })
+
+    }
+
+    
+    static  updateQuantity(id ,  value , callback) {
+
+        fs.readFile(cartFilePath , (error , fileContent)=>{
+
+            let cart = { products : [] ,totalPrice : 0};
             
+            if(!error){
+                cart = JSON.parse(fileContent);
+            }
+
+            const productIndex = cart.products.findIndex((prod)=>{
+                return prod.id == id;
+            });
+            
+            if(productIndex == -1){
+                console.error("product not found . product id is " , id);
+
+                callback();
+                return;
+
+            }
+
+            cart.products[productIndex].quantity += Number(value);
+
+            
+            if(cart.products[productIndex].quantity < 1){
+                cart.products.splice(productIndex , 1);
+            }
+
+
+            console.log(cart);
+
+            fs.writeFile(cartFilePath , JSON.stringify(cart , null , 2) , (error) => {
+                if(error){
+                    console.error(error);
+                }
+
+
+                Cart.updateTotalPrice();
+                
+                callback();
             } );
         })
 

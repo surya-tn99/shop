@@ -7,4 +7,6 @@ router.get("/cart" ,cartController.viewCart);
 
 router.post("/cart" ,cartController.addProductToCart )
 
+router.get("/cart/qty" ,cartController.updateQuantity);
+
 module.exports = router;

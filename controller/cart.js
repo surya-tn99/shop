@@ -1,7 +1,7 @@
 const Product = require("../model/product.js");
 const Cart = require("../model/cart.js");
 
-exports.viewCart = (req , res, nest) =>{
+exports.viewCart = (req , res, next) =>{
     
     Cart.FetchCartProductDetails((products , totalPrice ) => {
         res.render("cart" , 
@@ -16,10 +16,15 @@ exports.viewCart = (req , res, nest) =>{
 
 }
 
-exports.addProductToCart = (req , res, nest) =>{
+exports.addProductToCart = (req , res, next) =>{
    
-    Cart.addProduct(req.body.id , req.body.price);
+    Cart.addProduct(req.body.id);
     res.redirect("/cart");
 }
 
-// TODO increase and descrese quantity
+exports.updateQuantity = (req , res , next) => {
+    Cart.updateQuantity(req.query.productID , req.query.value , ()=>{
+        res.redirect("/cart");
+    });
+    
+}

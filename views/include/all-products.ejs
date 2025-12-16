@@ -27,6 +27,8 @@
                     <% if(active === "cart") {%>
                         <button class="cart-qty-btn">Quantity : <%= product.quantity %>
                         </button>
+                        <button class="btn"><a href="/cart/qty?productID=<%= product.id %>&value=1">  Increase  </a></button>
+                        <button class="btn"><a href="/cart/qty?productID=<%= product.id %>&value=-1">  Descrease  </a></button>
 
                     <% } else {%>
                         <form action="/cart" method="post">
