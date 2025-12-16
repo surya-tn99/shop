@@ -1,3 +1,11 @@
 *{
     margin: 0;
 }
+
+.title{
+    color: rgb(255, 145, 0);
+    width: 50%;
+    margin: auto;
+    text-align: center;
+    padding: 10px;
+}
