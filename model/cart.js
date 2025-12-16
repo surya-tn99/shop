@@ -1,11 +1,56 @@
 const fs =  require("fs");
 const path =  require("path");
 const rootDir = require("../utils/path.js");
-
+const Product = require("./product.js");
 const cartFilePath = path.join(rootDir, "data" ,"cart.json");
 
 module.exports = class Cart{
-    static  addProduct(id , price){
+    
+    static listCartItems(callback) {
+
+        fs.readFile(cartFilePath , async (error , fileContent)=>{
+
+            let cart = { products : [] ,totalPrice : 0};
+            
+            if(!error){
+                cart = JSON.parse(fileContent);
+            }
+
+            callback(cart);
+        })
+    }
+
+    static FetchCartProductDetails(callback){
+        Cart.listCartItems(cart => {
+        
+            const cartProductDetails = [];
+            let productCount = cart.products.length;
+
+            for(let prod of cart.products){
+
+                Product.fetchProductById(prod.id , (product)=>{
+                    // console.log(product);
+                    if(product){
+                        product = {...product , quantity :  prod.quantity};
+                        cartProductDetails.push(product);
+                    }     
+                    productCount -- ;
+
+                    if(productCount === 0){
+                        // console.log(cartProductDetails);
+                        for(let cart of cartProductDetails){
+                            console.log(cart);
+                        }
+                        callback(cartProductDetails , cart.totalPrice);
+                    }
+                })  
+
+            }
+        })
+    }
+
+
+    static  addProduct(id , price) {
 
         fs.readFile(cartFilePath , async (error , fileContent)=>{
 

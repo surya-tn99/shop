@@ -10,8 +10,13 @@
                 <%= products.description %>
             </div>
 
-            <button class="btn">Add To Cart</button>
-
+            <form action="/cart" method="post">
+                <input type="hidden" name="id" value="<%= products.id %>"/>
+                <input type="hidden" name="price" value="<%= products.price %>"/>
+                
+                <button type="submit" class="btn">Add To Cart</button>
+            </form>
+        
         </fieldset>
     </div>
 </main>

@@ -54,8 +54,8 @@ module.exports = class Product{
 
     static fetchProductById(id , callBackFunction) {
         getJSONContent(products => {
-            const product = products.find( p => p.id === id);
-            
+            const product = products.find( p => p.id == id);
+        
             callBackFunction(product);
         })
     }

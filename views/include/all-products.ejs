@@ -2,6 +2,7 @@
     <% for(let product of products) { %>
     <div class="product">
         <fieldset>
+          
             <legend><%= product.title %></legend>
 
             <div class="price">₹<%= product.price %></div>
@@ -15,13 +16,19 @@
                 <button class="btn">Delete</button>
             <% } else {%>
                 <button class="btn"><a href="/product/<%= product.id %>">Details</a></button>
-               
-                <form action="/cart" method="post">
-                    <input type="hidden" name="id" value="<%= product.id %>"/>
-                    <input type="hidden" name="price" value="<%= product.price %>"/>
-                    <button type="submit" class="btn">Add To Cart</button>
-                </form>
-            
+                
+                <% if(active === "cart") {%>
+                    <button class="cart-qty-btn">Quantity : <%= product.quantity %>
+                    </button>
+                <% } else {%>
+                    <form action="/cart" method="post">
+                        <input type="hidden" name="id" value="<%= product.id %>"/>
+                        <input type="hidden" name="price" value="<%= product.price %>"/>
+                        
+                        <button type="submit" class="btn">Add To Cart</button>
+                    
+                    </form>
+                <% }%>
             <% }%>
 
         </fieldset>

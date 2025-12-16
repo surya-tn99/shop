@@ -22,7 +22,7 @@
     text-decoration: none;
     color: inherit;
 }
-.product .btn{
+.product .btn , .product .cart-qty-btn{
     color: rgb(255, 145, 0);
     display: inline-block;
     padding: 5px;

@@ -2,12 +2,18 @@ const Product = require("../model/product.js");
 const Cart = require("../model/cart.js");
 
 exports.viewCart = (req , res, nest) =>{
-    res.render("cart" , 
-    {
-        active : "cart",
-        cssPaths : ["/css/nav.css" ,"/css/common.css" , "/css/products.css" ]
-    }
-    );
+    
+    Cart.FetchCartProductDetails((products , totalPrice ) => {
+        res.render("cart" , 
+        {
+            active : "cart",
+            cssPaths : ["/css/nav.css" ,"/css/common.css" , "/css/products.css" ],
+            products : products,
+            totalPrice : totalPrice
+        }
+        );
+    });
+
 }
 
 exports.addProductToCart = (req , res, nest) =>{
