@@ -14,8 +14,23 @@ exports.viewAdminPage = (req , res  , next) => {
     }) ;  
 }
 
+// hanlde /admin/edit-product
+exports.editProductPage = (req , res , next )=>{
+    
+    Product.fetchProductById(req.query.productID, product => {
+        console.log(product);
+        res.render("edit-product" , 
+        {
+            active : "edit-product",
+            cssPaths : ["/css/nav.css" ,"/css/common.css" , "/css/add-product.css" ],
+            product : product
+        }
+        );
+    }) ;  
+}
+
 exports.productModification = (req , res , next) => {
-    console.log(req.query);
+    
     if(req.query.delete == "true"){
         Product.deleteProduct(req.query.productID  , ()=>{
             console.log("product deleted");

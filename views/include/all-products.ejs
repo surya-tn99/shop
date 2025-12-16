@@ -12,8 +12,8 @@
             </div>
 
             <% if(active === "admin") {%>
-                <button class="btn">Edit</button>
                 
+                <button class="btn"><a href="/admin/edit-product?productID=<%=product.id%>">Edit</a></button>
                 <form action="/admin/modify?delete=true&productID=<%=product.id%>" method="post">
                         
                         <button type="submit" class="btn">Delete</button>    
@@ -40,5 +40,9 @@
     </div>
     <% } %>
 
-    <h3 class="title">Total Price : <%= totalPrice %></h3>
+
+    <% if(active == "cart"){ %>
+        <h3 class="title">Total Price : <%= totalPrice %></h3>  
+    <% } %>
+
 </main>

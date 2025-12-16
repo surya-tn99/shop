@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product</title>
+    <% for(let cssPath of cssPaths) { %>
+    <link rel="stylesheet" href=<%= cssPath %> >    
+    <% } %>
+
+</head>
+<body>
+
+    <%- include("include/nav") %>
+    
+    <main>
+        <form action="/admin/modify?edit=true&productID=<%=product.id%>" method="post">
+            <legend>Title</legend>
+            <input type="text" name="title" id=""  value=<%= product.title %>>
+            <legend>Price</legend>
+            <input type="number" name="price" id=""  value=<%= product.price %>>
+            <legend>Description</legend>
+            <textarea name="description" id=""><%= product.description %></textarea>
+            <br>
+            <button type="submit">Edit Product</button>
+        </form>
+    </main>
+
+</body>
+</html>
