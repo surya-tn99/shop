@@ -8,6 +8,9 @@ const manageProduct = require("./routes/manageProduct.js");
 const cartRouter = require("./routes/cart.js"); 
 const adminRouter = require("./routes/admin.js");
 
+// database 
+const mongodb = require("./utils/mongo.js");
+
 // template engine
 app.set("view engine" , "ejs");
 app.set("views" , "views");
@@ -28,4 +31,6 @@ app.use(adminRouter);
 app.use(manageProduct);
 app.use(productViewRoute);
 
-app.listen(1234);
+mongodb.connectMongoDB((client)=>{
+    app.listen(1234);
+})
