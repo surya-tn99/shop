@@ -18,7 +18,8 @@ exports.viewAdminPage = (req , res  , next) => {
 // hanlde /admin/edit-product
 exports.editProductPage = (req , res , next )=>{
     
-    Product.fetchProductById(req.query.productID, product => {
+    Product.fetchProductById(req.query.productID, (product) => {
+        console.log("return value is : ",product);
         
         res.render("edit-product" , 
         {
@@ -27,7 +28,8 @@ exports.editProductPage = (req , res , next )=>{
             product : product
         }
         );
-    }) ;  
+    }) ;
+    ;
 }
 
 exports.productModification = (req , res , next) => {

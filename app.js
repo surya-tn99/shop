@@ -6,7 +6,7 @@ const app = express();
 const productViewRoute = require("./routes/productView.js");
 const manageProduct = require("./routes/manageProduct.js");
 const cartRouter = require("./routes/cart.js"); 
-const adminRouter = require("./routes/admin.js");
+// const adminRouter = require("./routes/admin.js");
 
 // database 
 const mongodb = require("./utils/mongo.js");
@@ -27,10 +27,15 @@ app.use(express.urlencoded({extended : true}));
 
 // routes middleware
 app.use(cartRouter);
-app.use(adminRouter);
+// app.use(adminRouter);
 app.use(manageProduct);
 app.use(productViewRoute);
 
 mongodb.connectMongoDB((client)=>{
-    app.listen(1234);
+    app.listen(1234 , (error)=>{
+        if(error){
+            console.error(error);
+        }
+        console.log("listen at port 1234");
+    });
 })

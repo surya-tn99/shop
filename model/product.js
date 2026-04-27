@@ -1,27 +1,4 @@
-const fs =  require("fs");
-const path =  require("path");
-const rootDir = require("../utils/path.js");
-
-const productFilePath = path.join(rootDir, "data" ,"products.json");
-
-const getJSONContent = callBackFunction => {
-    // reading data
-    fs.readFile(productFilePath , "utf8" , (error , fileContent) => {
-        if(error){
-            console.log("error bro while reading data");
-            return callBackFunction([]);
-        }
-        else{
-
-            if(!fileContent.trim()){
-                // whether the file is empty file
-                return callBackFunction([]);
-            }
-            return callBackFunction(JSON.parse(fileContent));
-        }
-
-    });
-}
+const getDb = require("../utils/mongo").getDb;
 
 module.exports = class Product{
 
@@ -34,67 +11,61 @@ module.exports = class Product{
     }
 
     addProduct() {
+        const db = getDb();
 
-        getJSONContent(products => {
-
-            products.push(this);
-
-            fs.writeFile(productFilePath , JSON.stringify(products , null , 2) , (error)=>{
-                if(error){
-                    console.log("error bro while writing data");
-                }
-            });
-        })       
-
+        db.collection("products").insertOne(this)
+        .then(res => console.log(res))
+        .catch(e => console.error(e));
     }
 
     static fetchProductById(id , callBackFunction) {
-        getJSONContent(products => {
-            const product = products.find( p => p.id == id);
-        
-            callBackFunction(product);
-        })
-    }
+            console.log(id);
+
+            const db = getDb(); 
+
+            db.collection("products").findOne({id : Number(id)} , (err , product) => {
+                if(!err){
+                    console.log(product);
+                    return callBackFunction(product);
+                }
+
+                console.error(err);
+                return callBackFunction(null);
+            });
+
+            console.log("---------------------");
+        }
     
 
-    static editProduct(newProduct , callback){
-        console.log(newProduct);
-        
-        getJSONContent(products => {
+    static editProduct(newProduct , callBackFunction){
 
-            const index = products.findIndex(prod => prod.id == newProduct.id);
-            if(index != -1){
-                products[index] = newProduct; 
-            }
-            
-            fs.writeFile(productFilePath , JSON.stringify(products , null , 2) , (error)=>{
-                if(error){
-                    console.log("error bro while writing data");
-                }
-                callback();
-            });
-        })     
+        const db = getDb();
+        db.collection("products").updateOne({id : newProduct.id} , {$set : newProduct})
+        .then(res => {
+            callBackFunction(res);
+        })
+        .catch(e => {
+            console.error(e);
+        });
     }
 
     static deleteProduct(productID , callBackFunction) {
-        getJSONContent(products => {
-
-            const index = products.findIndex(prod => prod.id == productID);
-            if(index != -1){
-                products.splice(index , 1);
-                callBackFunction();
-            }
-
-            fs.writeFile(productFilePath , JSON.stringify(products , null , 2) , (error)=>{
-                if(error){
-                    console.log("error bro while writing data");
-                }
-            });
-            
-        })       
+        const db = getDb();
+        db.collection("products").deleteOne({id : productID})
+        .then(result => {
+            callBackFunction(result);
+        })
+        .catch(e => {
+            console.error(e);
+        });
     }
 
     static fetchAllProductDetails(callBackFunction) {
-        getJSONContent(callBackFunction);
+        const db = getDb();
+        db.collection("products").find().toArray()
+        .then(products => {
+            callBackFunction(products);
+        })
+        .catch(e => console.error(e));
     }    
 }
